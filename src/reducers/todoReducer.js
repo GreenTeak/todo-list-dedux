@@ -50,12 +50,12 @@ export default function todos(state = initialState, action) {
                    linkto:-1
                }
         case "EDIT_TO_ITEM":
-            let itemedit = state.todos.map((item) =>{
+             let itemedit = state.todos.map((item) =>{
                 if(item.id === action.id ){
-                    item.edit = !item.edit;
+                     item.edit = !item.edit;
                 }
                 return item
-            });
+             });
             return {
                 todos:itemedit,
                 filterText:state.filterText,

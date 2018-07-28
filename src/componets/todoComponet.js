@@ -42,7 +42,7 @@ class TodoList extends Component {
                     this.props.todoList.todos.map(item =>{
                         let path = {
                             pathname:`/UserInfo/${item.id}`,
-                            state:item.id
+                            state:item
                         }
                         return  (
                             <li key={item.id} onClick={() => {
