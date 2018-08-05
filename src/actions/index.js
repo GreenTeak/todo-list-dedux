@@ -6,3 +6,12 @@ export const addTodoItem = text =>({type: "ADD_TO_ITEM",text})
 export const delTodoItem = id =>({type:"Del_TO_ITEM",id})
 export const filterTodoItem = text =>({type: "FILTER_TO_ITEM", text})
 export const editTodoItem = (id) =>({type: "EDIT_TO_ITEM",id})
+
+export const getTodoList = () => (dispatch) => {
+    fetch("/api/todos").then(res => res.json()).then(todos => {
+        dispatch({
+            type: "RECEIVED_TODOS",
+            todos
+        });
+    });
+}

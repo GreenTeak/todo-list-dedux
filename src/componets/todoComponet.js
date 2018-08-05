@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import {addTodoItem,delTodoItem, filterTodoItem,editTodoItem} from "../actions/index"
+import {addTodoItem,delTodoItem, filterTodoItem,editTodoItem, getTodoList} from "../actions/index"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'
 
 class TodoList extends Component {
     constructor() {
         super()
-        this.state = []
+        this.state = {
+            todos: []
+        }
+    }
+    componentDidMount(){
+        this.props.getTodoList();
     }
     render() {
+    console.log(this.props.todoList, '--------')
         return (
             <div className="App">
 
@@ -36,7 +42,6 @@ class TodoList extends Component {
                 <button className="button1" onClick={() => {
                     this.props.addTodoItem(this.input.value)
                 }}>add todos</button>
-
                 <ul>
                 {
                     this.props.todoList.todos.map(item =>{
@@ -45,6 +50,7 @@ class TodoList extends Component {
                             state:item
                         }
                         return  (
+                          <div>
                             <li key={item.id} onClick={() => {
                                  this.props.editTodoItem(item.id)
                              }}>
@@ -53,14 +59,19 @@ class TodoList extends Component {
                                 <Link to={path}>
                                     {item.completed ? <del>{item.text}</del>:item.text}
                                 </Link>
-                            </li>
+                                <button>x</button>
+                             {item.tasks.map((e)=>{
+                               return <li> {e.content}</li>
+                             })}
+                             </li>
+                           </div>
                         )
                     })
                 }
                 </ul>
-            </div>
+           </div>
         );
-    }
+   }
 }
 const mapStateToProps = state => {
     return {
@@ -71,7 +82,8 @@ const mapDispatchToProps = {
     addTodoItem,
     delTodoItem,
     filterTodoItem,
-    editTodoItem
+    editTodoItem,
+    getTodoList
 };
 export default connect(
     mapStateToProps,

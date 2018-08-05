@@ -1,11 +1,10 @@
-
-
 const initialState = {
     todos: [{
         id: 0,
         text: 'Use Redux',
         completed: false,
         edit: false,
+        tasks:[]
     }
     ],
     filterText:" ",
@@ -15,6 +14,11 @@ const initialState = {
 let index = 0;
 export default function todos(state = initialState, action) {
     switch (action.type) {
+        case "RECEIVED_TODOS":
+            return {
+                ...state,
+                todos: [...action.todos]
+            }
         case "ADD_TO_ITEM":
             return {
                 todos:[...state.todos, {id: ++ index, text: action.text, completed: false,edit:false}],
@@ -62,6 +66,18 @@ export default function todos(state = initialState, action) {
                 filtered:state.filtered,
                 linkto:action.id
             }
+         case "ADD_TODO_JSON":
+             let newstate = state.todos;
+             action.text.map((json) =>{
+                newstate.push(json);
+                return json;
+             })
+             return{
+                todos:newstate,
+                filterText:state.text,
+                filtered:itemsfilter,
+                linkto:state.filtered
+             }
 
         default:
             return state

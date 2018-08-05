@@ -8,13 +8,15 @@ import { Route, Switch} from 'react-router'
 import {applyMiddleware,compose} from 'redux'
 import TodoList from './componets/todoComponet'
 import { createBrowserHistory } from "history";
+import thunk from 'redux-thunk';
 import {routerMiddleware, connectRouter, ConnectedRouter} from "connected-react-router";
 
 const history = createBrowserHistory();
 
+//const middleware = [...routerMiddleware(history), thunk];
 const store = createStore(
     connectRouter(history)(reducer),
-    compose(applyMiddleware(routerMiddleware(history))
+    compose(applyMiddleware(routerMiddleware(history),thunk)
     )
 );
 render(
