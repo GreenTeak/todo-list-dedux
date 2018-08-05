@@ -5,17 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'
 
 class TodoList extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             todos: []
         }
     }
     componentDidMount(){
-        this.props.getTodoList();
+        this.props.getTodoList(this.props.location.state);
     }
     render() {
-    console.log(this.props.todoList, '--------')
         return (
             <div className="App">
 
