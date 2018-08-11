@@ -65,8 +65,9 @@ export const LoginToServer =(name,password) =>(dispatch) =>{
       .then(token => {
          localStorage.token = token
          console.log("LoginToServerToken",localStorage.token);
-        });
+        })
+//        .catch((err) => {
+//
+//        });
 
 }
-
-

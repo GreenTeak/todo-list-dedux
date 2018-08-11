@@ -1,10 +1,12 @@
-const initialState = {};
+const initialState = {
+loginError: ''
+};
 
 export default function userLogin(state = initialState, action) {
     switch (action.type) {
-            case "ADD_TOKEN":
+            case "ADD_TOKEN_err":
             return{
-               token:action.token
+//               loginError: false
             }
             default:
                return state;

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {addTodoItem,delTodoItem, filterTodoItem,editTodoItem, getTodoList} from "../actions/index"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'
+import './col-center-block.css'
 
 class TodoList extends Component {
     constructor(props) {
@@ -16,18 +17,20 @@ class TodoList extends Component {
     }
     render() {
         return (
-            <div className="App">
+        <div className="container">
+           <div className="row">
+             <div className="col-xs-8 col-md-8 col-center-block">
 
                 <input ref={(el)=> {this.filters = el;}} type = "text"/>
-                <button className="button2" onClick={(e) => {
+                <button className="button2 surround" onClick={(e) => {
                     this.props.filterTodoItem(this.filters.value)
                 }}>搜索</button>
 
-                <ul>
+                <ul className="list-group">
                 {
                     this.props.todoList.filtered.map(item =>{
                         return  (
-                            <li key={item.id}>
+                            <li  className="list-group-item" key={item.id}>
                                 {item}
                             </li>
                         )
@@ -38,7 +41,7 @@ class TodoList extends Component {
                 <input ref={(el)=> {
                     this.input = el;
                 }} type = "text" className= "generatorStr"/>
-                <button className="button1" onClick={() => {
+                <button className="button1 surround" onClick={() => {
                     this.props.addTodoItem(this.input.value)
                 }}>add todos</button>
                 <ul>
@@ -50,25 +53,27 @@ class TodoList extends Component {
                         }
                         return  (
                           <div>
-                            <li key={item.id} onClick={() => {
+                            <li className="list-group-item" key={item.id} onClick={() => {
                                  this.props.editTodoItem(item.id)
                              }}>
-                                <input type = "checkbox" onChange={()=> {
+                                <input className="surround" type = "checkbox" onChange={()=> {
                             this.props.delTodoItem(item.id)}}/>
                                 <Link to={path}>
-                                    {item.completed ? <del>{item.text}</del>:item.text}
+                                  {item.completed ? <del>{item.text}</del>:item.text}
                                 </Link>
-                                <button>x</button>
+                                <button className="surround">x</button>
+                            </li>
                              {item.tasks.map((e)=>{
                                return <li> {e.content}</li>
                              })}
-                             </li>
                            </div>
                         )
                     })
                 }
                 </ul>
+              </div>
            </div>
+        </div>
         );
    }
 }
